@@ -25,7 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ClientApp\src\Dependency injection\ConsoleWriter.cs" />
+    <Compile Remove="Dependency injection\ConsoleWriter.cs" />
+    <Compile Remove="Dependency injection\IConsolewriter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Dependency injection\ConsoleWriter.cs" />
+    <None Include="Dependency injection\IConsoleWriter.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
