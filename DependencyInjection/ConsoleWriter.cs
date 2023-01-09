@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 
+
 namespace Digital_library.DependencyInjection
 {
-    public class ConsoleWriter
+    public class ConsoleWriter : IConsolewriter
     {
         public void Write()
         {
-            Debug.Writeline("Testing Dependency Injection...")        
+            Debug.WriteLine("Testing Dependency Injection...");
         }
     }
 }
