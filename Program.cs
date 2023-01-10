@@ -1,6 +1,7 @@
 using Digital_library;
 using Digital_library.CustomMiddleware;
 using Digital_library.DependencyInjection;
+using Digital_library.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IConsolewriter, ConsoleWriter>();
+builder.Services.AddTransient<ILibraryService, LibraryService>();
 builder.Services.AddDbContext<AppDataContext>(x => x.UseSqlServer("CONNECTIN STRING"));
 
 var app = builder.Build();

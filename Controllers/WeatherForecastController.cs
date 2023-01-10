@@ -1,4 +1,5 @@
 ﻿using Digital_library.DependencyInjection;
+using Digital_library.Model.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Digital_library.Controllers

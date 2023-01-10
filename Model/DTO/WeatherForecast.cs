@@ -1,4 +1,4 @@
-namespace Digital_library
+namespace Digital_library.Model.DTO
 {
     public class WeatherForecast
     {
