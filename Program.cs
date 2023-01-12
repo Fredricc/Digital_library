@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IConsolewriter, ConsoleWriter>();
 builder.Services.AddTransient<ILibraryService, LibraryService>();
-builder.Services.AddDbContext<AppDataContext>(x => x.UseSqlServer("CONNECTIN STRING"));
+builder.Services.AddDbContext<AppDataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DigitalLibrary")));
 
 var app = builder.Build();
 
