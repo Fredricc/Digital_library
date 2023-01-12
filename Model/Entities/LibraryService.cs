@@ -16,7 +16,12 @@
 
         public List<Library> GetByName(string prName)
         {
-            return null;
+            var linq = from libraries in _context.Libraries select libraries;
+
+            if(!string.IsNullOrWhiteSpace(prName) )
+                linq = linq.Where(x => x.Name.ToUpper().Contains(prName.ToUpper()));
+
+            return linq.ToList();
         }
 
         public Library Save(Library prLibrary)

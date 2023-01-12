@@ -32,7 +32,8 @@ namespace Digital_library.Controllers
             //_IConsoleWriter.Write();
 
             /* GET Libraries */
-            List<Library> ILibraries = _ILibraryService.GetAll();
+           // List<Library> ILibraries = _ILibraryService.GetAll();
+            List<Library> ILibraries = _ILibraryService.GetByName("LIBRARY OF OXFORD");
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
