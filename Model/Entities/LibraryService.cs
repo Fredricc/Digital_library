@@ -26,7 +26,9 @@
 
         public Library Save(Library prLibrary)
         {
-            return null;
+            _context.Libraries.Add(prLibrary);
+            _context.SaveChanges();
+            return prLibrary;
         }
 
         public Library Update(Library prLibrary)
