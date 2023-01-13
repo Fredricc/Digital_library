@@ -28,12 +28,17 @@
         {
             _context.Libraries.Add(prLibrary);
             _context.SaveChanges();
+
             return prLibrary;
         }
 
         public Library Update(Library prLibrary)
         {
-            return null;
+            Library ILibraryFromDB = _context.Libraries.First(x => x.Id == prLibrary.Id);
+            _context.Entry(ILibraryFromDB).CurrentValues.SetValues(prLibrary);
+            _context.SaveChanges();
+
+            return prLibrary;
         }
 
         public void Delete(Library prLibrary)

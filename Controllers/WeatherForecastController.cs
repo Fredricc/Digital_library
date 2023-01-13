@@ -32,12 +32,16 @@ namespace Digital_library.Controllers
             //_IConsoleWriter.Write();
 
             /* GET Libraries */
-           // List<Library> ILibraries = _ILibraryService.GetAll();
-           // List<Library> ILibraries = _ILibraryService.GetByName("LIBRARY OF OXFORD");
+            // List<Library> ILibraries = _ILibraryService.GetAll();
+            // List<Library> ILibraries = _ILibraryService.GetByName("LIBRARY OF OXFORD");
 
             /* ADD LIBRARY */
-            Library lNewLibrary = new Library() { Name = "Test Library", Address= "Test Address", Telephone = "1234567890"};
-            _ILibraryService.Save(lNewLibrary);
+            //Library lNewLibrary = new Library() { Name = "Test Library", Address= "Test Address", Telephone = "1234567890"};
+            //_ILibraryService.Save(lNewLibrary);
+
+            Library ILibraryToUpdate = _ILibraryService.GetByName("Test Library").FirstOrDefault();
+            ILibraryToUpdate.Name = "Test Library Update";
+            _ILibraryService.Update(ILibraryToUpdate);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
