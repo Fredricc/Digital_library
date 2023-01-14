@@ -39,9 +39,14 @@ namespace Digital_library.Controllers
             //Library lNewLibrary = new Library() { Name = "Test Library", Address= "Test Address", Telephone = "1234567890"};
             //_ILibraryService.Save(lNewLibrary);
 
+            /* UPDATE LIBRARY */
+            //Library ILibraryToUpdate = _ILibraryService.GetByName("Test Library").FirstOrDefault();
+            //ILibraryToUpdate.Name = "Test Library Update";
+            //_ILibraryService.Update(ILibraryToUpdate);
+
+            /* DELETE LIBRARY */
             Library ILibraryToUpdate = _ILibraryService.GetByName("Test Library").FirstOrDefault();
-            ILibraryToUpdate.Name = "Test Library Update";
-            _ILibraryService.Update(ILibraryToUpdate);
+            _ILibraryService.Delete(ILibraryToUpdate);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
