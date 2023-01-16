@@ -16,9 +16,17 @@ public class LibraryController : ControllerBase
     }
 
     [HttpGet]
-    public Library Get()
+    public IActionResult GetAll()
     {
-        return new Library();
+        List<Library> IResult = _ILibraryService.GetAll();
+        return Ok(IResult);
+    }
+
+    [HttpGet]
+    public IActionResult GetByName(string prName)
+    {
+        List<Library> IResult = _ILibraryService.GetByName(prName);
+        return Ok(IResult);
     }
 }
 
