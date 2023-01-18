@@ -43,7 +43,7 @@
 
         public void Delete(Library prLibrary)
         {
-            _context.Entry(prLibrary).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            //_context.Entry(prLibrary).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             _context.SaveChanges();
         }
     }
