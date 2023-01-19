@@ -32,7 +32,7 @@ const MyFunctionalComponent = (props) => {
             <hr />
             <h4>State</h4>
             <span>
-                <b>Age:  </b>{age }
+                <b>Age:  </b>{age}
                 <button onClick={() => setAge(age + 1)}> + </button>
                 <button onClick={() => setAge(age - 1)}> - </button>
             </span>
