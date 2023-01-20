@@ -36,6 +36,28 @@ const MyFunctionalComponent = (props) => {
         else
             return (<p> Fred has 25 years or less </p>)
     }
+    /* ITERATIONS */
+    let users = [
+        { name: 'Fred', age: 20},
+        { name: 'John', age: 34},
+        { name: 'Hellen', age: 18},
+        { name: 'Paul', age: 29 },
+    ]
+
+    /* ITERATIONS */
+    const [userName, setUserName] = userState("David");
+    const handleUserNameChange = (event) => {
+        setUserName(event.target.value);
+    }
+    const handleSubmit = (event) => {
+        alert("Form submitted: Value: " + userName)
+    }
+
+    //ITERATION EXAMPLE 1
+    let userList = users.map((user) =>
+        <li key={user.name}>Name: {user.name} - Age: {user.age}</li>
+    );
+
 
     return (
         <div>
@@ -83,7 +105,20 @@ const MyFunctionalComponent = (props) => {
                 })()
             }
 
+            <hr />
+            {/* ITERATION */}
+            <ul>
+                {/* EXAMPLE  1*/}
+                {userList}
+            </ul>
 
+            {/* EXAMPLE  2*/}
+            <ul>
+            <hr />
+            {users.map((user) =>
+                <li key={user.name}> Name: {user.name} - Age: {user.age}</li>)
+                }
+            </ul>
         </div>
     )
 }
