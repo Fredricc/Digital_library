@@ -29,6 +29,14 @@ const MyFunctionalComponent = (props) => {
         alert(`Name: ${props.name ? props.name : `John`} | Age: ${age} | Telephone: ${prTelephone}`)
     }
 
+    /* CONDITONAL RENDERING */
+    let FredAge = () => {
+        if (age > 25)
+            return (<p> Fred has more than 25 years </p>)
+        else
+            return (<p> Fred has 25 years or less </p>)
+    }
+
     return (
         <div>
             <h2>My Functional Component</h2>
@@ -49,7 +57,32 @@ const MyFunctionalComponent = (props) => {
             {/* EVENT HANDLING*/}
             <hr />
             <h4>Event Handling</h4>
-            <button onClick={showDetails.bind(this, 123456789) }> Show Details</button>
+            <button onClick={showDetails.bind(this, 123456789)}> Show Details</button>
+
+            {/* CONDITONAL RENDERING */}
+            <hr />
+            <h4>Conditional rendering</h4>
+
+            {/* EXAMPLE 1 - IF/ELSE */}
+            {FredAge()}
+
+            {/* EXAMPLE 2 - TERNARY OPERATOR */}
+            <p>{age > 25 ? 'Fred has more than 25 years' : 'Fred has 25 years or less'}</p>
+
+            {/* EXAMPLE 3 - SHORT-CIRCUIT OPERATOR */}
+            {age > 25 && <p>'Fred has more than 25 years'</p>}
+            {age <= 25 && <p>'Fred has 25 years or less'</p>}
+
+            {/* EXAMPLE 4 - IMEDIATELY INVOLVED FUNCTION */}
+            {
+                (() => {
+                    switch (age) {
+                        case 25: return <p>Fred has 25 years</p>;
+                        default: return <p>Fred is not 25 years</p>
+                    }
+                })()
+            }
+
 
         </div>
     )
