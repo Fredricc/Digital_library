@@ -45,7 +45,7 @@ const MyFunctionalComponent = (props) => {
     ]
 
     /* ITERATIONS */
-    const [userName, setUserName] = userState("David");
+    const [userName, setUserName] = useState("David");
     const handleUserNameChange = (event) => {
         setUserName(event.target.value);
     }
@@ -119,6 +119,18 @@ const MyFunctionalComponent = (props) => {
                 <li key={user.name}> Name: {user.name} - Age: {user.age}</li>)
                 }
             </ul>
+
+            {/* FORMS */}
+            <hr />
+            <h4>Form</h4>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={userName} onChange={handleUserNameChange } />
+                </label>
+                <input type="submit" value= "Submit" />
+            </form>
+
         </div>
     )
 }
