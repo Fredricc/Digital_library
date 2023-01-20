@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState, useRef } from 'react';
 
 const MyFunctionalComponent = (props) => {
 
@@ -57,6 +57,15 @@ const MyFunctionalComponent = (props) => {
     let userList = users.map((user) =>
         <li key={user.name}>Name: {user.name} - Age: {user.age}</li>
     );
+
+    /* REFS */
+    const inputRefName = useRef(null);
+    const inputRefTelephone = useRef(null);
+    const clearRefFields = () => {
+        inputRefName.current.value = "";
+        inputRefTelephone.current.value = "";
+        inputRefName.current.focus();
+    }
 
 
     return (
@@ -130,6 +139,21 @@ const MyFunctionalComponent = (props) => {
                 </label>
                 <input type="submit" value= "Submit" />
             </form>
+
+            {/* REF */}
+            <hr />
+            <h4>Refs</h4>
+            <label>
+                Name:
+                <input type="text" ref={ inputRefName} />
+            </label>
+            <label>
+                Telephone:
+                <input type="text" ref={inputRefTelephone} />
+            </label>
+            <button onClick={clearRefFields.bind(this)}>Clear Fields</button>
+            <hr/>
+
 
         </div>
     )
