@@ -3,6 +3,7 @@ import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { MyClassComponent } from "./components/MyComponents/MyClassComponent";
 import MyFunctionalComponent from "./components/MyComponents/MyFunctionalComponent";
+import LibraryComponent from "./components/MyComponents/LibraryComponent";
 
 const AppRoutes = [
   {
@@ -24,6 +25,10 @@ const AppRoutes = [
   {
       path: '/MyFunctionalComponent',
       element: <MyFunctionalComponent />
+  },
+  {
+    path: '/Library',
+    element: <LibraryComponent />
   }
 ];
 
