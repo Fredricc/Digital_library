@@ -1,4 +1,5 @@
 ﻿import React from "react";
+import axios from "axios";
 
 const LibraryComponent = (props) => {
     return (
@@ -54,7 +55,37 @@ const LibraryComponent = (props) => {
                 </div>
             </div>
             <br />
-            {/* DISPLAY LIBRARIES*/ }
+            {/* DISPLAY LIBRARIES*/}
+            <div className="card border border-secondary shadow-0">
+                <div className="card-header bg-secondary text-white"><b>Display</b> Library</div>
+                <div className="card-body">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Telephone</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input className="form-control" type="text" value="Name" /></td>
+                                <td><input className="form-control" type="text" value="Address" /></td>
+                                <td><input className="form-control" type="text" value="Telephone" /></td>
+                                <td>
+                                    <div className="btn-toolbar">
+                                        <button className="btn btn-info m-1 mt-0 mb-0">Edit</button>
+                                        <button className="btn btn-success m-1 mt-0 mb-0">Save</button>
+                                        <button className="btn btn-danger m-1 mt-0 mb-0">Delete</button>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         )
 }
