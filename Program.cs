@@ -20,16 +20,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+}
+else
+{
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-//ALLOW SPECIFIC ORIGIN
-//app.UseCors(options => options.WithOrigins("http......").AllowAnyMethod());
-app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(oridin => true));
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true));
 
 app.UseSwaggerUI();
 app.UseSwagger(x => x.SerializeAsV2 = true);
