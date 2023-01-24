@@ -126,6 +126,12 @@ const LibraryComponent = (props) => {
                                     <td><input className="form-control" value={item.name} onChange={handleLibraryInputChange.bind(this, item)} name="name" disabled={!item.isEditing} /></td>
                                     <td><input className="form-control" value={item.address} onChange={handleLibraryInputChange.bind(this, item)} name="address" disabled={!item.isEditing} /></td>
                                     <td><input className="form-control" value={item.telephone} onChange={handleLibraryInputChange.bind(this, item)} name="telephone" disabled={!item.isEditing} /></td>
+                                    <td>
+                                        <div className="btn-toolbar">
+                                            <button type="button" className="btn btn-info mr-2" onClick={editLibrary.bind(this, item)} style={{display: item.isEditing ? 'none' : 'block'}}>Edit</button>
+                                            <button type="button" className="btn btn-success mr-2" onClick={confirmUpdate.bind(this, item)} style={{ display: item.isEditing ? 'block' : 'none' }}>Save</button>
+                                        </div>
+                                    </td>
                                 </tr>
                                 )}
                         </tbody>
