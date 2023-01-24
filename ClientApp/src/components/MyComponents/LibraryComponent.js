@@ -15,6 +15,7 @@ const LibraryComponent = (props) => {
     const searchItems = () => {
         let URL = searchParameterName !== "" ? ("https://localhost:7005/api/Library/Search?prName=" + searchParameterName) : "https://localhost:7005/api/Library/GetAll"; 
         axios.get(URL).then(response => { 
+            response.data.map(item => { item.isEditing = false; })
             setLibrariesList(response.data);
         })
     }
@@ -45,7 +46,7 @@ const LibraryComponent = (props) => {
    
 
     /* INSERT */
-    const [libraryToAdd, setLibraryToAdd] = useState([name: '', address: '', telephone: '']);
+    const [libraryToAdd, setLibraryToAdd] = useState({ name: '', address: '', telephone: '' });
     const handleLibraryToAddInputChange = (prInput) => {
         const { name, value } = prInput.target;
         let libraryToAddNewReference = { ...libraryToAdd, [name]: value };
@@ -122,9 +123,9 @@ const LibraryComponent = (props) => {
                         <tbody>
                             {LibrariesList.map(item =>
                                 <tr key={item.name}>
-                                    <td>{item.name}</td>
-                                    <td>{item.address}</td>
-                                    <td>{item.telephone}</td>
+                                    <td><input className="form-control" value={item.name} onChange={handleLibraryInputChange.bind(this, item)} name="name" disabled={!item.isEditing} /></td>
+                                    <td><input className="form-control" value={item.address} onChange={handleLibraryInputChange.bind(this, item)} name="address" disabled={!item.isEditing} /></td>
+                                    <td><input className="form-control" value={item.telephone} onChange={handleLibraryInputChange.bind(this, item)} name="telephone" disabled={!item.isEditing} /></td>
                                 </tr>
                                 )}
                         </tbody>
