@@ -1,5 +1,5 @@
-﻿import React, { useState } from "react";
-import axios from "axios";
+﻿import axios from "axios";
+import React, { useState } from "react";
 
 
 const LibraryComponent = (props) => {
@@ -13,11 +13,45 @@ const LibraryComponent = (props) => {
         setSearchParameterName(event.target.value.toString());
     }
     const searchItems = () => {
-        let URL = searchParameterName != "" ? ("https://localhost:7005/api/Library/Search?prName=" + searchParameterName) : "https://localhost:7005/api/Library/GetAll"; 
+        let URL = searchParameterName !== "" ? ("https://localhost:7005/api/Library/Search?prName=" + searchParameterName) : "https://localhost:7005/api/Library/GetAll"; 
         axios.get(URL).then(response => { 
             setLibrariesList(response.data);
         })
     }
+    const handleLibraryInputChange = (prLibrary, prInput) => {
+        let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
+        const index = librariesNewReference.find((item) => item.name == prLibrary.name);
+        const { name, value } = prInput.target;//Get the NAME and VALUE of the property changed
+        librariesNewReference[index] = { ...prLibrary, [name]: value };// Update just the specific property keeping the others
+        setLibrariesList(librariesNewReference);
+    }
+    const editLibrary = (prLibrary) => {
+        let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
+        const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+        librariesNewReference[index].isEditing = true;
+        setLibrariesList(librariesNewReference);
+    }
+    const confirmUpdate = (prLibrary) => {
+        axios.put("https://localhost:7005/api/Library/Update", prLibrary).then(response => {
+            let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
+            const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+            librariesNewReference[index] = prLibrary;
+            librariesNewReference[index].isEditing = false;
+            setLibrariesList(librariesNewReference);
+        })
+    
+    }
+
+   
+
+    /* INSERT */
+    const [libraryToAdd, setLibraryToAdd] = useState([name: '', address: '', telephone: '']);
+    const handleLibraryToAddInputChange = (prInput) => {
+        const { name, value } = prInput.target;
+        let libraryToAddNewReference = { ...libraryToAdd, [name]: value };
+        setLibraryToAdd(libraryToAddNewReference);
+    }
+    
 
     return (
         <div>
@@ -52,15 +86,15 @@ const LibraryComponent = (props) => {
                             <div className="row">
                                 <div className="col-md-3">
                                     <label className="form-label">Name</label>
-                                    <input className="form-control" placeholder="Enter Name" name="name" type="text"/>
+                                    <input className="form-control" placeholder="Enter Name" name="name" value={libraryToAdd.name} onChange={handleLibraryToAddInputChange.bind(this)} type="text"/>
                                 </div>
                                 <div className="col-md-3">
                                     <label className="form-label">Address</label>
-                                    <input className="form-control" placeholder="Enter Address" name="address" type="text" />
+                                    <input className="form-control" placeholder="Enter Address" name="address" value={libraryToAdd.address} onChange={handleLibraryToAddInputChange.bind(this)} type="text" />
                                 </div>
                                 <div className="col-md-3">
                                     <label className="form-label">Telephone</label>
-                                    <input className="form-control" placeholder="Enter Telephone" name="Telephone" type="text" />
+                                    <input className="form-control" placeholder="Enter Telephone" name="telephone" value={libraryToAdd.telephone} onChange={handleLibraryToAddInputChange.bind(this)} type="text" />
                                 </div>
                                 <div className="col-md-3">
                                     <label className="form-label">&nbsp;</label>
