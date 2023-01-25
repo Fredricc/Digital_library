@@ -165,6 +165,8 @@ const LibraryComponent = (props) => {
                 <SweetAlert success
                     confirmBtnText="Ok"
                     confirmBtnBsStyle="success"
+                    openAnim={{ name: 'showSweetAlert', duration: 2000 }}
+                    closeAnim={{ name: 'hideSweetAlert', duration: 2000 }}
                     title="Item successfully added!"
                     onConfirm={() => setShowAlertNewLibrary(false)}>
                     Please click "OK" to close
