@@ -30,6 +30,7 @@ public class LibraryController : ControllerBase
     [HttpPut]
     public IActionResult Update(Library prLibrary)
     {
+        throw new NotImplementedException();
         return Ok(_ILibraryService.Update(prLibrary));
     }
     [HttpPost]
