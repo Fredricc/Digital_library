@@ -1,11 +1,12 @@
 ﻿import axios from "axios";
 import React, { useState } from "react";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 
 const LibraryComponent = (props) => {
 
     /* LIST LIBRARIES */
-    const [LibrariesList, setLibrariesList] = useState([]);
+    const [librariesList, setLibrariesList] = useState([]);
 
     /* SEARCH */
     const [searchParameterName, setSearchParameterName] = useState('');
@@ -15,27 +16,27 @@ const LibraryComponent = (props) => {
     const searchItems = () => {
         let URL = searchParameterName !== "" ? ("https://localhost:7005/api/Library/Search?prName=" + searchParameterName) : "https://localhost:7005/api/Library/GetAll"; 
         axios.get(URL).then(response => { 
-            response.data.map(item => { item.isEditing = false; })
+            response.data.map(item => { item.isEditing = false;})
             setLibrariesList(response.data);
         })
     }
     const handleLibraryInputChange = (prLibrary, prInput) => {
-        let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
-        const index = librariesNewReference.find((item) => item.name == prLibrary.name);
+        let librariesNewReference = [...librariesList]; //Create a copy of the object with new reference (new space in memory)
+        const index = librariesNewReference.findIndex((item) => item.name === prLibrary.name);
         const { name, value } = prInput.target;//Get the NAME and VALUE of the property changed
         librariesNewReference[index] = { ...prLibrary, [name]: value };// Update just the specific property keeping the others
         setLibrariesList(librariesNewReference);
     }
     const updateEditingStatus = (prLibrary, prFlag) => {
-        let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
-        const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+        let librariesNewReference = [...librariesList]; //Create a copy of the object with new reference (new space in memory)
+        const index = librariesNewReference.findIndex((item) => item.name === prLibrary.name);
         librariesNewReference[index].isEditing = prFlag;
         setLibrariesList(librariesNewReference);
     }
     const confirmUpdate = (prLibrary) => {
         axios.put("https://localhost:7005/api/Library/Update", prLibrary).then(response => {
-            let librariesNewReference = [...LibrariesList]; //Create a copy of the object with new reference (new space in memory)
-            const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+            let librariesNewReference = [...librariesList]; //Create a copy of the object with new reference (new space in memory)
+            const index = librariesNewReference.findIndex((item) => item.name === prLibrary.name);
             librariesNewReference[index] = prLibrary;
             librariesNewReference[index].isEditing = false;
             setLibrariesList(librariesNewReference);
@@ -52,22 +53,26 @@ const LibraryComponent = (props) => {
     }
     const confirmNewLibrary = () => {
         axios.post("https://localhost:7005/api/Library/Save", libraryToAdd).then(response => {
-            let librariesNewReference = [...LibrariesList];
+            let librariesNewReference = [...librariesList];
             librariesNewReference.push(response.data);
             setLibrariesList(librariesNewReference);
             setLibraryToAdd({ name: '', address: '', telephone: '' }); //Clear the state
+            setShowAlertNewLibrary(true);
         })
     }
 
     /* DELETE */
     const deleteLibrary = (prLibrary) => {
         axios.delete("https://localhost:7005/api/Library/Delete", { data: prLibrary }).then(response => {
-            let librariesNewReference = [...LibrariesList];
-            const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+            let librariesNewReference = [...librariesList];
+            const index = librariesNewReference.findIndex((item) => item.name === prLibrary.name);
             librariesNewReference.splice(index, 1); //Remove item from list
             setLibrariesList(librariesNewReference);
         });
     }
+
+    /* ALERT*/
+    const [showAlertNewLibrary, setShowAlertNewLibrary] = useState(false);
 
     return (
         <div>
@@ -136,7 +141,7 @@ const LibraryComponent = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {LibrariesList.map(item =>
+                            {librariesList.map(item =>
                                 <tr key={item.name}>
                                     <td><input className="form-control" value={item.name} onChange={handleLibraryInputChange.bind(this, item)} name="name" disabled={!item.isEditing} /></td>
                                     <td><input className="form-control" value={item.address} onChange={handleLibraryInputChange.bind(this, item)} name="address" disabled={!item.isEditing} /></td>
@@ -155,6 +160,16 @@ const LibraryComponent = (props) => {
                     </table>
                 </div>
             </div>
+            {/* ALERT LIBRARY ADDED */ }
+            {showAlertNewLibrary &&
+                <SweetAlert success
+                    confirmBtnText="Ok"
+                    confirmBtnBsStyle="success"
+                    title="Item successfully added!"
+                    onConfirm={() => setShowAlertNewLibrary(false)}>
+                    Please click "OK" to close
+                </SweetAlert>
+            }
         </div>
         )
 }
