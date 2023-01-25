@@ -59,6 +59,16 @@ const LibraryComponent = (props) => {
         })
     }
 
+    /* DELETE */
+    const deleteLibrary = (prLibrary) => {
+        axios.delete("https://localhost:7005/api/Library/Delete", { data: prLibrary }).then(response => {
+            let librariesNewReference = [...LibrariesList];
+            const index = librariesNewReference.findIndex((item) => item.name == prLibrary.name);
+            librariesNewReference.splice(index, 1); //Remove item from list
+            setLibrariesList(librariesNewReference);
+        });
+    }
+
     return (
         <div>
             <hr />
@@ -136,6 +146,7 @@ const LibraryComponent = (props) => {
                                             <button type="button" className="btn btn-info m-1 mt-0 mb-0" onClick={updateEditingStatus.bind(this, item, true)} style={{display: item.isEditing ? 'none' : 'block'}}>Edit</button>
                                             <button type="button" className="btn btn-warning m-1 mt-0 mb-0" onClick={updateEditingStatus.bind(this, item, false)} style={{display: item.isEditing ? 'block' : 'none'}}>Cancel</button>
                                             <button type="button" className="btn btn-success m-1 mt-0 mb-0" onClick={confirmUpdate.bind(this, item)} style={{ display: item.isEditing ? 'block' : 'none' }}>Save</button>
+                                            <button type="button" className="btn btn-danger m-1 mt-0 mb-0" onClick={deleteLibrary.bind(this, item)}>Delete</button>
                                         </div>
                                     </td>
                                 </tr>
